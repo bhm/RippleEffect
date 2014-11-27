@@ -120,6 +120,12 @@ public class RippleView extends RelativeLayout {
         gestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
             @Override
             public boolean onSingleTapConfirmed(MotionEvent e) {
+                if (hasParent()) {
+                    View v = (View) getParent();
+                    if (v != null) {
+                        v.performClick();
+                    }
+                }
                 return true;
             }
 
