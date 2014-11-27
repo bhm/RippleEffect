@@ -120,6 +120,12 @@ public class RippleView extends RelativeLayout {
         gestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
             @Override
             public boolean onSingleTapConfirmed(MotionEvent e) {
+                if (hasParent() && passClickToParent) {
+                    View v = (View) getParent();
+                    if (v != null) {
+                        v.performClick();
+                    }
+                }
                 return true;
             }
 
@@ -142,12 +148,6 @@ public class RippleView extends RelativeLayout {
                 durationEmpty = -1;
                 timerEmpty = 0;
                 canvas.restore();
-                if (hasParent() && passClickToParent) {
-                    View parent = (View) getParent();
-                    parent.performClick();
-                } else {
-                    this.performClick();
-                }
                 invalidate();
                 return;
             } else {
